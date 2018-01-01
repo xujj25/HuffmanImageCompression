@@ -1,12 +1,12 @@
+//
+// Created by xujijun on 12/11/17.
+//
+
 #include <cstdio>
 #include <cstdint>
 #include <stdint-gcc.h>
 #include "image.h"
 
-//
-
-//
-// Created by xujijun on 12/11/17.
 
 
 Image::Image(unsigned char *data, unsigned char *info,

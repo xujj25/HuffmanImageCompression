@@ -1,3 +1,11 @@
+//
+// Created by xujijun on 12/31/17.
+//
+
+
+#ifndef HUFFMANIMAGECOMPRESSION_HUFFMANCOMPRESSION_H
+#define HUFFMANIMAGECOMPRESSION_HUFFMANCOMPRESSION_H
+
 #include <cstdio>
 #include <queue>
 #include <vector>
@@ -5,8 +13,6 @@
 #include <unordered_map>
 using namespace std;
 
-#ifndef HUFFMANIMAGECOMPRESSION_HUFFMANCOMPRESSION_H
-#define HUFFMANIMAGECOMPRESSION_HUFFMANCOMPRESSION_H
 
 class HuffmanCompression {
 private:

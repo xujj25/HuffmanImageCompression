@@ -1,3 +1,8 @@
+//
+// Created by xujijun on 12/31/17.
+//
+
+
 #include <iostream>
 #include <cstring>
 #include "huffmanCompression.h"

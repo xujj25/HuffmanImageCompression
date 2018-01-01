@@ -1,12 +1,13 @@
+//
+// Created by xujijun on 12/10/17.
+//
+
 #include <iostream>
 #include <cstdio>
 #include <cstring>
 #include "imageIOHelper.h"
 #include "imageIOException.h"
 using namespace std;
-//
-// Created by xujijun on 12/10/17.
-//
 
 const uint32_t ImageIOHelper::BitmapInfoLength = 54;
 
