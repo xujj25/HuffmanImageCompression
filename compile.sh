@@ -1,0 +1,3 @@
+mkdir bin build
+make
+

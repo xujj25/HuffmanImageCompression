@@ -15,8 +15,8 @@ ubuntu 16.04
 ## 运行方式：
 终端输入：
 
-```shell
-make
+```bash
+bash compile.sh
 ```
 
 即可编译
@@ -31,7 +31,6 @@ make
 根据提示可以完成图像压缩和解压
 
 示例：
-
-![make](img/make_output.png)
+![compile](img/compile_output.png)
 
 ![run](img/run_output.png)
