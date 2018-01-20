@@ -40,6 +40,9 @@ void HuffmanCompression::calcWeight(const unsigned char* dataPtr, uint32_t dataS
     }
 }
 
+// 因为节点队列能够根据进出队列的节点的权值进行顺序调整，
+// 所以每次只需要从队首取出2个节点构造一棵树，将树根再次加进节点队列，
+// 直到队列只剩下一个节点，这个节点就是编码树的根节点
 void HuffmanCompression::buildTree() {
     while (nodeQueue.size() > 1) {
         TreeNode* rightNode = nodeQueue.top();
@@ -54,6 +57,8 @@ void HuffmanCompression::buildTree() {
     treeRoot = nodeQueue.top();
 }
 
+// 深度优先搜索，过程中使用path来记录路径，
+// 到达每个叶子节点的path就是叶子节点对应数据的编码
 void HuffmanCompression::dfs(TreeNode* node, hfmCodeBitSet& path,
                              unordered_map<unsigned char, hfmCodeBitSet> &resCodeMap) {
     if (node -> left == nullptr && node -> right == nullptr) {
@@ -68,6 +73,7 @@ void HuffmanCompression::dfs(TreeNode* node, hfmCodeBitSet& path,
     path.pop_back();
 }
 
+// 生成编码表：调用dfs来生成编码表
 void HuffmanCompression::getCodeMap(unordered_map<unsigned char, hfmCodeBitSet> &resCodeMap) {
     if (treeRoot == nullptr)
         return;
@@ -145,22 +151,24 @@ void HuffmanCompression::generateDecodedOutput(const unsigned char *rawDataPtr, 
 void HuffmanCompression::getEncodedData(const unsigned char *rawDataPtr, uint32_t rawDataSize,
                                         unordered_map<unsigned char, uint32_t > &dstWeightMap,
                                         unsigned char *&outputDataPtr, uint32_t &outputDataBitSize) {
-    calcWeight(rawDataPtr, rawDataSize, dstWeightMap);
-    generateEncodedNodeQueue(dstWeightMap);
-    buildTree();
+    calcWeight(rawDataPtr, rawDataSize, dstWeightMap);  // 计算出权值映射表
+    generateEncodedNodeQueue(dstWeightMap);  // 根据权值映射表构建编码树节点队列
+    // （使用priority_queue这样一个以堆实现的“队列”，可以保证每次进出队操作后队列的节点保持权值从小到大排列）
+
+    buildTree();  // 建立编码树
     unordered_map<unsigned char, hfmCodeBitSet> resCodeMap;
-    getCodeMap(resCodeMap);
-    outputDataBitSize = calcEncodedOutputSize(dstWeightMap, resCodeMap);
-    generateEncodedOutput(rawDataPtr, rawDataSize, resCodeMap, outputDataPtr, outputDataBitSize);
+    getCodeMap(resCodeMap);  // 根据编码树产生权值表
+    outputDataBitSize = calcEncodedOutputSize(dstWeightMap, resCodeMap);  // 计算编码数据位数
+    generateEncodedOutput(rawDataPtr, rawDataSize, resCodeMap, outputDataPtr, outputDataBitSize);  // 对原数据进行编码
 }
 
 void HuffmanCompression::getDecodedData(const unsigned char *rawDataPtr, uint32_t rawDataBitSize,
                                         const vector<pair<unsigned char, uint32_t >> &srcWeightMapArr,
                                         unsigned char *&outputDataPtr, uint32_t &outputDataSize) {
-    generateDecodedNodeQueue(srcWeightMapArr);
-    buildTree();
-    outputDataSize = calcDecodedOutputSize(srcWeightMapArr);
-    generateDecodedOutput(rawDataPtr, rawDataBitSize, outputDataPtr, outputDataSize);
+    generateDecodedNodeQueue(srcWeightMapArr);  // 根据读取文件之后构建的权值映射表构建节点队列
+    buildTree();  // 建立编码树
+    outputDataSize = calcDecodedOutputSize(srcWeightMapArr);  // 计算输出数据大小
+    generateDecodedOutput(rawDataPtr, rawDataBitSize, outputDataPtr, outputDataSize);  // 对编码数据进行解码
 }
 
 uint32_t HuffmanCompression::calcEncodedOutputSize(const unordered_map<unsigned char, uint32_t > &weightMap,
