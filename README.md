@@ -2,6 +2,10 @@
 
 ## 项目说明
 
+### 项目github
+
+[HuffmanImageCompression](https://github.com/xujj25/HuffmanImageCompression)
+
 ### 项目语言
 
 C++(std=C++11) 
@@ -118,6 +122,7 @@ ubuntu 16.04
   ```
 
 ## 运行方式：
+
 终端输入：
 
 ```shell
@@ -135,7 +140,7 @@ make
 
 根据提示可以完成图像压缩和解压
 
-示例：
+### 示例
 
 ![make](img/make_output.png)
 
