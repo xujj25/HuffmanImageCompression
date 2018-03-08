@@ -17,6 +17,7 @@ hfmCodeBitSet::hfmCodeBitSet() {
 }
 
 hfmCodeBitSet::hfmCodeBitSet(const hfmCodeBitSet &other) {
+    data = new unsigned char[DataBlockLength];
     *this = other;
 }
 
@@ -47,7 +48,7 @@ bool hfmCodeBitSet::pop_back() {
 }
 
 hfmCodeBitSet::~hfmCodeBitSet() {
-    delete[](data);
+    delete[] data;
 }
 
 bool hfmCodeBitSet::operator[](uint32_t pos) const {
