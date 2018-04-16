@@ -13,9 +13,13 @@ class hfmCodeBitSet {
 private:
     uint32_t len;
     unsigned char *data;
+
+    void initFromOther(const hfmCodeBitSet& other);
+
 public:
     hfmCodeBitSet();
-    explicit hfmCodeBitSet(const hfmCodeBitSet&);
+
+    hfmCodeBitSet(const hfmCodeBitSet&);
 
     ~hfmCodeBitSet();
 

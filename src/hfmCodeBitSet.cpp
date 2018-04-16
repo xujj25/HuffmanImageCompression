@@ -18,7 +18,7 @@ hfmCodeBitSet::hfmCodeBitSet() {
 
 hfmCodeBitSet::hfmCodeBitSet(const hfmCodeBitSet &other) {
     data = new unsigned char[DataBlockLength];
-    *this = other;
+    initFromOther(other);
 }
 
 uint32_t hfmCodeBitSet::length() const {
@@ -69,8 +69,11 @@ unsigned char *hfmCodeBitSet::getData() const {
 }
 
 hfmCodeBitSet& hfmCodeBitSet::operator=(const hfmCodeBitSet &other) {
+    initFromOther(other);
+    return *this;
+}
+
+void hfmCodeBitSet::initFromOther(const hfmCodeBitSet &other) {
     len = other.length();
     memcpy(data, other.getData(), DataBlockLength);
-
-    return *this;
 }
